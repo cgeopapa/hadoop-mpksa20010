@@ -21,8 +21,8 @@ public class Driver
             job.setJobName("User review > 10");
 
             // set file input/output path
-            FileInputFormat.addInputPath(job, new Path(args[0]));
-            FileOutputFormat.setOutputPath(job, new Path(args[1]));
+            FileInputFormat.addInputPath(job, new Path(args[1]));
+            FileOutputFormat.setOutputPath(job, new Path(args[2]));
 
             // set jar class name
             job.setJarByClass(Driver.class);

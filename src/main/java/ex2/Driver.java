@@ -23,10 +23,10 @@ public class Driver
             job.setJobName("movie tag count");
 
             // set file input/output path
-            MultipleInputs.addInputPath(job, new Path(args[0]), TextInputFormat.class, TagMapper.class);
-            MultipleInputs.addInputPath(job, new Path(args[1]), TextInputFormat.class, MovieMapper.class);
+            MultipleInputs.addInputPath(job, new Path(args[1]), TextInputFormat.class, TagMapper.class);
+            MultipleInputs.addInputPath(job, new Path(args[2]), TextInputFormat.class, MovieMapper.class);
 //            FileInputFormat.addInputPath(job, new Path(args[0]));
-            FileOutputFormat.setOutputPath(job, new Path(args[2]));
+            FileOutputFormat.setOutputPath(job, new Path(args[3]));
 
             // set jar class name
             job.setJarByClass(Driver.class);
