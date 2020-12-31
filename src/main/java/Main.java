@@ -10,8 +10,12 @@ public class Main
             case "-ex2":
                 new ex2.Driver(args);
                 break;
+            case "-ex3":
+                new ex3.Driver(args);
+                break;
             default:
                 System.err.println("Unknown argument");
+                break;
         }
     }
 }

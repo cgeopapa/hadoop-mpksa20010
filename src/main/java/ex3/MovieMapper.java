@@ -1,11 +1,11 @@
-package ex2;
+package ex3;
 
 import org.apache.hadoop.io.Text;
 
 import java.io.IOException;
 import java.util.StringTokenizer;
 
-public class TagMapper extends org.apache.hadoop.mapreduce.Mapper<Object, Text, Text, Text>
+public class MovieMapper extends org.apache.hadoop.mapreduce.Mapper<Object, Text, Text, Text>
 {
     @Override
     protected void map(Object key, Text value, Context context) throws IOException, InterruptedException
@@ -13,10 +13,10 @@ public class TagMapper extends org.apache.hadoop.mapreduce.Mapper<Object, Text, 
         String line = value.toString();
         StringTokenizer itr = new StringTokenizer(line, ",");
 
-        String userId = itr.nextToken();
-        if(tryParseInt(userId))
+        String movieId = itr.nextToken();
+        if(tryParseInt(movieId))
         {
-            context.write(new Text(userId), new Text("+1"));
+            context.write(new Text(movieId), new Text(itr.nextToken()));
         }
     }
 
