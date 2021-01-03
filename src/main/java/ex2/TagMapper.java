@@ -3,7 +3,6 @@ package ex2;
 import org.apache.hadoop.io.Text;
 
 import java.io.IOException;
-import java.util.StringTokenizer;
 
 public class TagMapper extends org.apache.hadoop.mapreduce.Mapper<Object, Text, Text, Text>
 {
@@ -11,12 +10,12 @@ public class TagMapper extends org.apache.hadoop.mapreduce.Mapper<Object, Text, 
     protected void map(Object key, Text value, Context context) throws IOException, InterruptedException
     {
         String line = value.toString();
-        StringTokenizer itr = new StringTokenizer(line, ",");
+        String[] items = line.split("(?!\\B\"[^\"]*),(?![^\"]*\"\\B)");
 
-        String userId = itr.nextToken();
-        if(tryParseInt(userId))
+        String movieId = items[1].trim();
+        if(tryParseInt(movieId))
         {
-            context.write(new Text(userId), new Text("+1"));
+            context.write(new Text(movieId), new Text("_"));
         }
     }
 

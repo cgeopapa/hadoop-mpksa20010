@@ -14,13 +14,14 @@ public class Reducer extends org.apache.hadoop.mapreduce.Reducer<Text, Text, Tex
         Text movieTitle = new Text();
         for (Text o : values)
         {
-            if(o.getLength() > 1)
+            if(o.toString().trim().equals("_"))
             {
-                movieTitle = o;
+                noOfFrequency++;
             }
             else
             {
-                noOfFrequency++;
+                System.out.println(o.toString());
+                movieTitle = o;
             }
         }
         context.write(movieTitle, new IntWritable(noOfFrequency));

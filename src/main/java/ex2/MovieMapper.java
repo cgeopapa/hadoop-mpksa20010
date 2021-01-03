@@ -1,10 +1,8 @@
 package ex2;
 
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 
 import java.io.IOException;
-import java.util.StringTokenizer;
 
 public class MovieMapper extends org.apache.hadoop.mapreduce.Mapper<Object, Text, Text, Text>
 {
@@ -12,12 +10,12 @@ public class MovieMapper extends org.apache.hadoop.mapreduce.Mapper<Object, Text
     protected void map(Object key, Text value, Context context) throws IOException, InterruptedException
     {
         String line = value.toString();
-        StringTokenizer itr = new StringTokenizer(line, ",");
+        String[] items = line.split("(?!\\B\"[^\"]*),(?![^\"]*\"\\B)"); //comma not in quotes
 
-        String movieId = itr.nextToken();
+        String movieId = items[0].trim();
         if(tryParseInt(movieId))
         {
-            context.write(new Text(movieId), new Text(itr.nextToken()));
+            context.write(new Text(movieId), new Text(items[1].trim()));
         }
     }
 
