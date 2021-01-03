@@ -3,7 +3,6 @@ package ex3;
 import org.apache.hadoop.io.Text;
 
 import java.io.IOException;
-import java.util.StringTokenizer;
 
 public class RatingMapper extends org.apache.hadoop.mapreduce.Mapper<Object, Text, Text, Text>
 {
@@ -15,12 +14,10 @@ public class RatingMapper extends org.apache.hadoop.mapreduce.Mapper<Object, Tex
         if(header)
         {
             String line = value.toString();
-            StringTokenizer itr = new StringTokenizer(line, ",");
+            String[] items = line.split("(?!\\B\"[^\"]*),(?![^\"]*\"\\B)"); //comma not in quotes
 
-            String userId = itr.nextToken();
-            String movieId = itr.nextToken();
-            String rating = itr.nextToken();
-
+            String movieId = items[1];
+            String rating = items[2];
             context.write(new Text(movieId), new Text(rating));
         }
         else

@@ -12,14 +12,14 @@ public class Reducer extends org.apache.hadoop.mapreduce.Reducer<Text, Text, Tex
     {
         double sum = 0;
         int count = 0;
-        String title = "";
+        Text title = new Text();
 
         for(Text rate: values)
         {
             double thisRate = tryParseDouble(rate.toString());
             if(thisRate == -1)
             {
-                title = rate.toString();
+                title = new Text(rate.toString());
             }
             else
             {
@@ -28,13 +28,13 @@ public class Reducer extends org.apache.hadoop.mapreduce.Reducer<Text, Text, Tex
             }
         }
 
-        context.write(new Text(title), new DoubleWritable(sum / count));
+        context.write(title, new DoubleWritable(sum / count));
     }
 
     private double tryParseDouble(String s)
     {
         try {
-            return Integer.parseInt(s);
+            return Double.parseDouble(s);
         } catch (NumberFormatException e) {
             return -1;
         }

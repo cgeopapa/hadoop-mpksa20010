@@ -7,6 +7,7 @@ import java.io.IOException;
 
 public class Reducer extends org.apache.hadoop.mapreduce.Reducer<Text, Text, Text, IntWritable>
 {
+
     @Override
     protected void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException
     {
@@ -20,8 +21,7 @@ public class Reducer extends org.apache.hadoop.mapreduce.Reducer<Text, Text, Tex
             }
             else
             {
-                System.out.println(o.toString());
-                movieTitle = o;
+                movieTitle = new Text(o.toString());
             }
         }
         context.write(movieTitle, new IntWritable(noOfFrequency));
