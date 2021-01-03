@@ -17,14 +17,4 @@ public class Mapper extends org.apache.hadoop.mapreduce.Mapper<Object, Text, Tex
         int genreCount = items[2].split("\\|").length;
         context.write(new Text(title), new IntWritable(genreCount));
     }
-
-    private boolean tryParseInt(String s)
-    {
-        try {
-            Integer.parseInt(s);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
 }
